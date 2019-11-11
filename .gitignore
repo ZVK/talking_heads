@@ -1,9 +1,10 @@
-
-.idea/inspectionProfiles/profiles_settings.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/Talking-Heads.iml
-.idea/vcs.xml
+*.tar
+Pytorch_VGGFACE.pth
+__pycache__/
+env/
+mp4/
+txt/
+.idea/
 venv/bin/activate
 venv/bin/activate.csh
 venv/bin/activate.fish
