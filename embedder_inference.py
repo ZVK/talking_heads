@@ -1,6 +1,5 @@
 """Main"""
 import torch
-
 from dataset.video_extraction_conversion import select_frames, select_images_frames, generate_cropped_landmarks
 from network.blocks import *
 from network.model import Embedder
