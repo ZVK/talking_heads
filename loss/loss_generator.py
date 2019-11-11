@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-# import imp
+import imp
 import torchvision
 from torchvision.models import vgg19
 from network.model import Cropped_VGG19
@@ -13,7 +13,7 @@ class LossCnt(nn.Module):
         self.VGG19 = vgg19(pretrained=True)
         self.VGG19.eval()
         self.VGG19.to(device)
-        # MainModel = imp.load_source('MainModel', VGGFace_body_path)
+        MainModel = imp.load_source('MainModel', VGGFace_body_path)
         full_VGGFace = torch.load(VGGFace_weight_path, map_location = 'cpu')
         cropped_VGGFace = Cropped_VGG19()
         cropped_VGGFace.load_state_dict(full_VGGFace.state_dict(), strict=False)
