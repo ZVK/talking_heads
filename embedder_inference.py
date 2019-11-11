@@ -15,7 +15,7 @@ path_to_e_hat_video = 'e_hat_video.tar'
 path_to_e_hat_images = 'e_hat_images.tar'
 path_to_chkpt = 'model_weights.tar'
 path_to_video = 'examples/fine_tuning/test_video.mp4'
-path_to_images = 'examples/fine_tuning/test_images'
+path_to_images = 'examples/fine_tuning/reeps'
 T = 32
 
 
