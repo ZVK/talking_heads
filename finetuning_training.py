@@ -25,29 +25,29 @@ path_to_images = 'examples/fine_tuning/reeps'
 """Create dataset and net"""
 choice = ''
 while choice != '0' and choice != '1':
-    choice = input('What source to finetune on?\n0: Video\n1: Images\n\nEnter number\n>>')
-if choice == '0': #video
+    choice = input('What source to fine tune on?\n0: Video\n1: Images\n\nEnter number\n>>')
+if choice == '0':  # video
     dataset = FineTuningVideoDataset(path_to_video, device)
-else: #Images
+else:  # Images
     dataset = FineTuningImagesDataset(path_to_images, device)
 dataLoader = DataLoader(dataset, batch_size=2, shuffle=False)
 
 e_hat = torch.load(path_to_embedding, map_location=cpu)
 e_hat = e_hat['e_hat']
 
-G = Generator(256, finetuning = True, e_finetuning = e_hat)
-D = Discriminator(dataset.__len__(), finetuning = True, e_finetuning = e_hat)
+G = Generator(256, finetuning=True, e_finetuning=e_hat)
+D = Discriminator(dataset.__len__(), finetuning=True, e_finetuning=e_hat)
 
 G.train()
 D.train()
 
-optimizerG = optim.Adam(params = G.parameters(), lr=5e-5)
-optimizerD = optim.Adam(params = D.parameters(), lr=2e-4)
+optimizerG = optim.Adam(params=G.parameters(), lr=5e-5)
+optimizerD = optim.Adam(params=D.parameters(), lr=2e-4)
 
 
 """Criterion"""
 criterionG = LossGF(VGGFace_body_path='Pytorch_VGGFACE_IR.py',
-                   VGGFace_weight_path='Pytorch_VGGFACE.pth', device=device)
+                    VGGFace_weight_path='Pytorch_VGGFACE.pth', device=device)
 criterionDreal = LossDSCreal()
 criterionDfake = LossDSCfake()
 
@@ -162,8 +162,8 @@ for epoch in range(num_epochs):
 
 
 plt.clf()
-plt.plot(lossesG) #blue
-plt.plot(lossesD) #orange
+plt.plot(lossesG)  # blue
+plt.plot(lossesD)  # orange
 plt.show()
 
 print('Saving finetuned model...')
