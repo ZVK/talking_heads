@@ -18,7 +18,7 @@ device = torch.device("cuda:0")
 cpu = torch.device("cpu")
 path_to_chkpt = 'model_weights.tar'
 path_to_backup = 'backup_model_weights.tar'
-dataset = VidDataSet(K=8, path_to_mp4 = 'mp4', device=device)
+dataset = VidDataSet(K=6, path_to_mp4 = 'mp4', device=device)
 
 dataLoader = DataLoader(dataset, batch_size=2, shuffle=True)
 
