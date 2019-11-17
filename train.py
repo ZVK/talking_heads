@@ -153,22 +153,22 @@ for epoch in range(epochCurrent, num_epochs):
             for img_no in range(1, x_hat.shape[0]):
                 out = torch.cat((out, x_hat.transpose(1,3)[img_no]), dim=1)
             out = out.type(torch.int32).to(cpu).numpy()
-            im = plt.imshow(out)
-            plt.imsave('samples/x_hat{}.png'.format(i_batch), im)
+            plt.imshow(out)
+            plt.savefig('samples/x_hat{}.png'.format(i_batch))
             plt.clf()
             out = x.transpose(1, 3)[0]
             for img_no in range(1, x.shape[0]):
                 out = torch.cat((out, x.transpose(1, 3)[img_no]), dim=1)
             out = out.type(torch.int32).to(cpu).numpy()
-            im = plt.imshow(out)
-            plt.imsave('samples/x{}.png'.format(i_batch), im)
+            plt.imshow(out)
+            plt.savefig('samples/x{}.png'.format(i_batch))
             plt.clf()
             out = g_y.transpose(1,3)[0]
             for img_no in range(1,g_y.shape[0]):
                 out = torch.cat((out, g_y.transpose(1,3)[img_no]), dim = 1)
             out = out.type(torch.int32).to(cpu).numpy()
-            im = plt.imshow(out)
-            plt.imsave('samples/g_y{}.png'.format(i_batch), im)
+            plt.imshow(out)
+            plt.savefig('samples/g_y{}.png'.format(i_batch))
         if i_batch % 100 == 99:
             lossesD.append(lossD.item())
             lossesG.append(lossG.item())
@@ -176,9 +176,9 @@ for epoch in range(epochCurrent, num_epochs):
             plt.clf()
             plt.plot(lossesG) #blue
             plt.plot(lossesD) #orange
-            im = plt.show()
+            plt.show()
             try:
-                plt.imsave('samples/losses.png', im)
+                plt.savefig('samples/losses.png')
             except:
                 print('saving loss plot failes')
                 pass
