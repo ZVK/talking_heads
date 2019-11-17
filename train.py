@@ -179,6 +179,9 @@ for epoch in range(epochCurrent, num_epochs):
             im = plt.show()
             try:
                 plt.imsave('samples/losses.png', im)
+            except:
+                print('saving loss plot failes')
+                pass
 
             print('Saving latest...')
             torch.save({
