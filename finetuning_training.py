@@ -122,7 +122,7 @@ for epoch in range(num_epochs):
 
 
         # Output training stats
-        if epoch % 10 == 0:
+        if epoch % 1 == 0:
             batch_end = datetime.now()
             avg_time = (batch_end - batch_start) / 10
             print('\n\navg batch time for batch size of', x.shape[0],':',avg_time)
