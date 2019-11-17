@@ -149,21 +149,21 @@ for epoch in range(epochCurrent, num_epochs):
                      lossD.item(), lossG.item(), r.mean(), r_hat.mean()))
 
             plt.clf()
-            out = x_hat.transpose(1,3)[0]
-            for img_no in range(1,x_hat.shape[0]):
-                out = torch.cat((out, x_hat.transpose(1,3)[img_no]), dim = 1)
+            out = x_hat.transpose(1, 3)[0]
+            for img_no in range(1, x_hat.shape[0]):
+                out = torch.cat((out, x_hat.transpose(1,3)[img_no]), dim=1)
             out = out.type(torch.int32).to(cpu).numpy()
             plt.imshow(out)
             im = plt.show()
-            plt.imshow('samples/x_hat{}.png'.format(i_batch), im)
+            plt.imsave('samples/x_hat{}.png'.format(i_batch), im)
             plt.clf()
-            out = x.transpose(1,3)[0]
-            for img_no in range(1,x.shape[0]):
-                out = torch.cat((out, x.transpose(1,3)[img_no]), dim = 1)
+            out = x.transpose(1, 3)[0]
+            for img_no in range(1, x.shape[0]):
+                out = torch.cat((out, x.transpose(1, 3)[img_no]), dim=1)
             out = out.type(torch.int32).to(cpu).numpy()
             plt.imshow(out)
             im = plt.show()
-            plt.imshow('samples/x{}.png'.format(i_batch), im)
+            plt.imsave('samples/x{}.png'.format(i_batch), im)
             plt.clf()
             out = g_y.transpose(1,3)[0]
             for img_no in range(1,g_y.shape[0]):
@@ -171,7 +171,7 @@ for epoch in range(epochCurrent, num_epochs):
             out = out.type(torch.int32).to(cpu).numpy()
             plt.imshow(out)
             im = plt.show()
-            plt.imshow('samples/g_y{}.png'.format(i_batch), im)
+            plt.imsave('samples/g_y{}.png'.format(i_batch), im)
         if i_batch % 100 == 99:
             lossesD.append(lossD.item())
             lossesG.append(lossG.item())
