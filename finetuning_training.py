@@ -122,40 +122,39 @@ for epoch in range(num_epochs):
 
 
         # Output training stats
-        if epoch % 1 == 0:
-            batch_end = datetime.now()
-            avg_time = (batch_end - batch_start) / 10
-            print('\n\navg batch time for batch size of', x.shape[0],':',avg_time)
-            
-            batch_start = datetime.now()
-            
-            print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(y)): %.4f'
-                  % (epoch, num_epochs, i_batch, len(dataLoader),
-                     lossD.item(), lossG.item(), r.mean(), r_hat.mean()))
+        batch_end = datetime.now()
+        avg_time = (batch_end - batch_start) / 10
+        print('\n\navg batch time for batch size of', x.shape[0],':',avg_time)
 
-            plt.clf()
-            out = x_hat.transpose(1,3)[0]
-            for img_no in range(1,x_hat.shape[0]):
-                out = torch.cat((out, x_hat.transpose(1,3)[img_no]), dim = 1)
-            out = out.type(torch.int32).to(cpu).numpy()
-            plt.imshow(out)
-            plt.savefig('samples_finetune/{}_x_hat.png'.format(i_batch))
+        batch_start = datetime.now()
 
-            plt.clf()
-            out = x.transpose(1,3)[0]
-            for img_no in range(1,x.shape[0]):
-                out = torch.cat((out, x.transpose(1,3)[img_no]), dim = 1)
-            out = out.type(torch.int32).to(cpu).numpy()
-            plt.imshow(out)
-            plt.savefig('samples_finetune/{}_x.png'.format(i_batch))
+        print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(y)): %.4f'
+              % (epoch, num_epochs, i_batch, len(dataLoader),
+                 lossD.item(), lossG.item(), r.mean(), r_hat.mean()))
 
-            plt.clf()
-            out = g_y.transpose(1,3)[0]
-            for img_no in range(1,g_y.shape[0]):
-                out = torch.cat((out, g_y.transpose(1,3)[img_no]), dim = 1)
-            out = out.type(torch.int32).to(cpu).numpy()
-            plt.imshow(out)
-            plt.savefig('samples_finetune/{}_g_y.png'.format(i_batch))
+        plt.clf()
+        out = x_hat.transpose(1,3)[0]
+        for img_no in range(1,x_hat.shape[0]):
+            out = torch.cat((out, x_hat.transpose(1,3)[img_no]), dim = 1)
+        out = out.type(torch.int32).to(cpu).numpy()
+        plt.imshow(out)
+        plt.savefig('samples_finetune/{}_x_hat.png'.format(i_batch))
+
+        plt.clf()
+        out = x.transpose(1,3)[0]
+        for img_no in range(1,x.shape[0]):
+            out = torch.cat((out, x.transpose(1,3)[img_no]), dim = 1)
+        out = out.type(torch.int32).to(cpu).numpy()
+        plt.imshow(out)
+        plt.savefig('samples_finetune/{}_x.png'.format(i_batch))
+
+        plt.clf()
+        out = g_y.transpose(1,3)[0]
+        for img_no in range(1,g_y.shape[0]):
+            out = torch.cat((out, g_y.transpose(1,3)[img_no]), dim = 1)
+        out = out.type(torch.int32).to(cpu).numpy()
+        plt.imshow(out)
+        plt.savefig('samples_finetune/{}_g_y.png'.format(i_batch))
 
         lossesD.append(lossD.item())
         lossesG.append(lossG.item())
