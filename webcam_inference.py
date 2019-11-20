@@ -11,6 +11,7 @@ from webcam_demo.webcam_extraction_conversion import *
 """Init"""
 
 #Paths
+path_to_video = 'examples/fine_tuning/test_video.mp4'
 path_to_model_weights = 'model_weights.tar'
 path_to_embedding = 'e_hat_video.tar'
 
@@ -32,7 +33,7 @@ G.finetuning_init()
 
 """Main"""
 print('PRESS Q TO EXIT')
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(path_to_video)
 
 with torch.no_grad():
     while True:
@@ -73,10 +74,9 @@ with torch.no_grad():
         #plt.imshow(out3)
         #plt.show()
         
-        cv2.imshow('fake', cv2.cvtColor(out1, cv2.COLOR_BGR2RGB))
-        cv2.imshow('me', cv2.cvtColor(out2, cv2.COLOR_BGR2RGB))
-        cv2.imshow('ladnmark', cv2.cvtColor(out3, cv2.COLOR_BGR2RGB))
-        
+        cv2.imwrite('fake.png', cv2.cvtColor(out1, cv2.COLOR_BGR2RGB))
+        cv2.imwrite('head_track.png', cv2.cvtColor(out2, cv2.COLOR_BGR2RGB))
+        cv2.imwrite('landmark.png', cv2.cvtColor(out3, cv2.COLOR_BGR2RGB))
         if cv2.waitKey(1) == ord('q'):
             break
 cap.release()
