@@ -1,6 +1,8 @@
-# Realistic-Neural-Talking-Head-Models
+# Talking Heads (dadabots fork)
 
-My implementation of Few-Shot Adversarial Learning of Realistic Neural Talking Head Models (Egor Zakharov et al.). https://arxiv.org/abs/1905.08233
+Work in Progress. Merging ideas from existing implementations. Adding Colab Notebook scripts.
+
+Implementation of Few-Shot Adversarial Learning of Realistic Neural Talking Head Models (Egor Zakharov et al.). https://arxiv.org/abs/1905.08233
 
 ![Fake1](https://github.com/vincent-thevenin/Realistic-Neural-Talking-Head-Models/blob/master/examples/1%201.png "Fake 1")
 ![Real1](https://github.com/vincent-thevenin/Realistic-Neural-Talking-Head-Models/blob/master/examples/1%202.png "Real 1")
