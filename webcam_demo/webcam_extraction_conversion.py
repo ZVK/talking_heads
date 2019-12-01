@@ -4,77 +4,78 @@ from matplotlib import pyplot as plt
 import numpy as np
 import torch
 
+
 def get_borders(preds):
-    minX = maxX = preds[0,0]
-    minY = maxY = preds[0,1]
+    min_x = max_x = preds[0, 0]
+    min_y = max_y = preds[0, 1]
     
     for i in range(1, len(preds)):
-        x = preds[i,0]
-        if x < minX:
-            minX = x
-        elif x > maxX:
-            maxX = x
+        x = preds[i, 0]
+        if x < min_x:
+            min_x = x
+        elif x > max_x:
+            max_x = x
         
-        y = preds[i,1]
-        if y < minY:
-            minY = y
-        elif y > maxY:
-            maxY = y
+        y = preds[i, 1]
+        if y < min_y:
+            min_y = y
+        elif y > max_y:
+            max_y = y
     
-    return minX, maxX, minY, maxY
+    return min_x, max_x, min_y, max_y
+
 
 def crop_and_reshape_preds(preds, pad, out_shape=256):
-    minX, maxX, minY, maxY = get_borders(preds)
+    min_x, max_x, min_y, max_y = get_borders(preds)
     
-    delta = max(maxX - minX, maxY - minY)
-    deltaX = (delta - (maxX - minX))/2
-    deltaY = (delta - (maxY - minY))/2
+    delta = max(max_x - min_x, max_x - min_y)
+    delta_x = (delta - (max_x - min_x))/2
+    delta_y = (delta - (max_y - min_y))/2
     
-    deltaX = int(deltaX)
-    deltaY = int(deltaY)
-    
-    
-    #crop
+    delta_x = int(delta_x)
+    delta_y = int(delta_y)
+
+    # crop
     for i in range(len(preds)):
-        preds[i][0] = max(0, preds[i][0] - minX + deltaX + pad)
-        preds[i][1] = max(0, preds[i][1] - minY + deltaY + pad)
+        preds[i][0] = max(0, preds[i][0] - min_x + delta_x + pad)
+        preds[i][1] = max(0, preds[i][1] - min_y + delta_y + pad)
     
-    #find reshape factor
+    # find reshape factor
     r = out_shape/(delta + 2*pad)
         
     for i in range(len(preds)):
-        preds[i,0] = int(r*preds[i,0])
-        preds[i,1] = int(r*preds[i,1])
+        preds[i, 0] = int(r*preds[i, 0])
+        preds[i, 1] = int(r*preds[i, 1])
     return preds
 
+
 def crop_and_reshape_img(img, preds, pad, out_shape=256):
-    minX, maxX, minY, maxY = get_borders(preds)
+    min_x, max_x, min_y, max_y = get_borders(preds)
     
-    #find reshape factor
-    delta = max(maxX - minX, maxY - minY)
-    deltaX = (delta - (maxX - minX))/2
-    deltaY = (delta - (maxY - minY))/2
+    # find reshape factor
+    delta = max(max_x - min_x, max_y - min_y)
+    delta_x = (delta - (max_x - min_x))/2
+    delta_y = (delta - (max_y - min_y))/2
     
-    minX = int(minX)
-    maxX = int(maxX)
-    minY = int(minY)
-    maxY = int(maxY)
-    deltaX = int(deltaX)
-    deltaY = int(deltaY)
+    min_x = int(min_x)
+    max_x = int(max_x)
+    min_y = int(min_y)
+    max_y = int(max_y)
+    delta_x = int(delta_x)
+    delta_y = int(delta_y)
     
-    lowY = max(0,minY-deltaY-pad)
-    lowX = max(0, minX-deltaX-pad)
-    img = img[lowY:maxY+deltaY+pad, lowX:maxX+deltaX+pad, :]
-    img = cv2.resize(img, (out_shape,out_shape))
+    low_y = max(0, min_y - delta_y - pad)
+    low_x = max(0, min_x - delta_x - pad)
+    img = img[low_y: max_y + delta_y + pad, low_x: max_x + delta_x + pad, :]
+    img = cv2.resize(img, (out_shape, out_shape))
     
     return img
 
 
 def generate_landmarks(cap, device, pad):
     """Input: cap a cv2.VideoCapture object, device the torch.device, 
-pad the distance in pixel from border to face
-
-output: x the camera output, g_y the corresponding landmark"""
+    pad the distance in pixel from border to face
+    output: x the camera output, g_y the corresponding landmark"""
    
     #Get webcam image
     fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, flip_input=False, device='cuda:0')
@@ -83,8 +84,8 @@ output: x the camera output, g_y the corresponding landmark"""
     while(no_pic == True):
         # Capture frame-by-frame
         ret, frame = cap.read()
-        RGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        frames_list = [RGB]
+        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frames_list = [rgb]
 
 
         #Create landmark for face
@@ -133,9 +134,9 @@ output: x the camera output, g_y the corresponding landmark"""
 
     
     frame_mark = torch.from_numpy(np.array(frame_landmark_list)).type(dtype = torch.float) #K,2,256,256,3
-    frame_mark = frame_mark.transpose(2,4).to(device) #K,2,3,256,256
+    frame_mark = frame_mark.transpose(2, 4).to(device) #K,2,3,256,256
     
-    x = frame_mark[0,0].to(device)
-    g_y = frame_mark[0,1].to(device)
+    x = frame_mark[0, 0].to(device)
+    g_y = frame_mark[0, 1].to(device)
     
-    return x,g_y
+    return x, g_y
