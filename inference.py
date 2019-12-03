@@ -37,7 +37,11 @@ def main(model_weights_path: str = 'model_weights.tar',
             if x is None and g_y is None:
                 break
             g_y = g_y.unsqueeze(0)
-            x = x.unsqueeze(0)
+            x = x.unsqueeze(0).transpose(1, 3)[0] / 255
+            plt.imshow(x)
+            plt.show()
+            plt.imsave(os.path.join(output_dir, 'x-{}.png'.format(enum)), x)
+            plt.clf()
 
             # forward
             # Calculate average encoding vector for video
