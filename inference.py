@@ -2,7 +2,7 @@ import torch
 import cv2
 from matplotlib import pyplot as plt
 from network.model import Generator
-from webcam_demo.webcam_extraction_conversion import generate_landmarks
+from video_extraction import generate_landmarks
 import os.path
 
 
