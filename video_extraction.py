@@ -135,7 +135,8 @@ def generate_landmarks(cap, device, pad):
 
     
     frame_mark = torch.from_numpy(np.array(frame_landmark_list)).type(dtype = torch.float) #K,2,256,256,3
-    print(frame_mark.shape)
+    if frame_mark.shape[0] == 0:
+        return None, None
     frame_mark = frame_mark.transpose(2, 4).to(device) #K,2,3,256,256
     
     x = frame_mark[0, 0].to(device)
