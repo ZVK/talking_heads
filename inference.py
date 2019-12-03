@@ -33,7 +33,8 @@ def main(model_weights_path: str = 'model_weights.tar',
     with torch.no_grad():
         while True:
             x, g_y = generate_landmarks(cap=cap, device=device, pad=50)
-
+            if x is None and g_y is None:
+                break
             g_y = g_y.unsqueeze(0)
             x = x.unsqueeze(0)
 
