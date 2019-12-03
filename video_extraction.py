@@ -81,7 +81,7 @@ def generate_landmarks(cap, device, pad):
     fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, flip_input=False, device='cuda:0')
     i = 0
     
-    while(cap.isOpend()):
+    while(cap.isOpened()):
         # Capture frame-by-frame
         ret, frame = cap.read()
         if not ret:
