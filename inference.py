@@ -70,9 +70,9 @@ def main(model_weights_path: str = 'model_weights.tar',
             # plt.imshow(out3)
             # plt.show()
 
-            cv2.imwrite(os.path.join(output_dir, 'fake-{}.png'.format(enum)), cv2.cvtColor(out1, cv2.COLOR_BGR2RGB))
-            cv2.imwrite(os.path.join(output_dir, 'head_track-{}.png'.format(enum)), cv2.cvtColor(out2, cv2.COLOR_BGR2RGB))
-            cv2.imwrite(os.path.join(output_dir, 'landmark-{}.png'.format(enum)), cv2.cvtColor(out3, cv2.COLOR_BGR2RGB))
+            cv2.imwrite(os.path.join(output_dir, 'fake-{}.png'.format(enum)), cv2.cvtColor(out1, cv2.COLOR_RGB2BGR))
+            cv2.imwrite(os.path.join(output_dir, 'head_track-{}.png'.format(enum)), cv2.cvtColor(out2, cv2.COLOR_RGB2BGR))
+            cv2.imwrite(os.path.join(output_dir, 'landmark-{}.png'.format(enum)), cv2.cvtColor(out3, cv2.COLOR_RGB2BGR)
             if cv2.waitKey(1) == ord('q'):
                 break
     cap.release()
