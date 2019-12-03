@@ -68,11 +68,12 @@ def main(model_weights_path: str = 'model_weights.tar',
             #    out3 = torch.cat((out3, g_y.transpose(1,3)[img_no]), dim = 1)
             out3 = out3.to(cpu).numpy()
             plt.imshow(out1)
-            plt.imsave(os.path.join(output_dir, 'fake_plt-{}.png'.format(enum)))
+            plt.imshow(out2)
+            plt.imshow(out3)
 
-            cv2.imwrite(os.path.join(output_dir, 'fake-{}.png'.format(enum)), cv2.cvtColor(out1, cv2.COLOR_BGR2RGB))
-            cv2.imwrite(os.path.join(output_dir, 'head_track-{}.png'.format(enum)), cv2.cvtColor(out2, cv2.COLOR_BGR2RGB))
-            cv2.imwrite(os.path.join(output_dir, 'landmark-{}.png'.format(enum)), cv2.cvtColor(out3, cv2.COLOR_BGR2RGB))
+            cv2.imwrite(os.path.join(output_dir, 'fake-{}.png'.format(enum)), out1)
+            cv2.imwrite(os.path.join(output_dir, 'head_track-{}.png'.format(enum)), out2)
+            cv2.imwrite(os.path.join(output_dir, 'landmark-{}.png'.format(enum)), out3)
             if cv2.waitKey(1) == ord('q'):
                 break
     cap.release()
