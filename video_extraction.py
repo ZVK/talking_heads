@@ -77,7 +77,8 @@ def generate_landmarks(cap, device, pad):
     pad the distance in pixel from border to face
     output: x the camera output, g_y the corresponding landmark"""
    
-    #Get webcam image
+    #Get video image
+    frame_landmark_list = []
     fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, flip_input=False, device='cuda:0')
     i = 0
     
