@@ -82,9 +82,10 @@ def generate_landmarks(cap, device, pad):
     fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, flip_input=False, device='cuda:0')
     i = 0
     
-    while(cap.isOpened()):
+    if(cap.isOpened()):
         # Capture frame-by-frame
         ret, frame = cap.read()
+        print("frame number", frame)
         if not ret:
             print("broke at if not ret", ret)
             break  # Can't receive frame. Possibly due to stream end
