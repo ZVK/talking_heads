@@ -143,7 +143,7 @@ def fine_tune(path_to_embedding = 'e_hat_video.tar',
                 out = torch.cat((out, x_hat.transpose(1,3)[img_no]), dim = 1)
             out = out.type(torch.int32).to(cpu).numpy()
             plt.imshow(out)
-            plt.savefig(os.path.join(sample_out_dir, '{}_x_hat.png'.format(i_batch)))
+            plt.savefig(os.path.join(sample_out_dir, '{}_x_hat.png'.format(epoch)))
 
             plt.clf()
             out = x.transpose(1,3)[0]
@@ -151,7 +151,7 @@ def fine_tune(path_to_embedding = 'e_hat_video.tar',
                 out = torch.cat((out, x.transpose(1,3)[img_no]), dim = 1)
             out = out.type(torch.int32).to(cpu).numpy()
             plt.imshow(out)
-            plt.savefig(os.path.join(sample_out_dir, '{}_x.png'.format(i_batch)))
+            plt.savefig(os.path.join(sample_out_dir, '{}_x.png'.format(epoch)))
 
             plt.clf()
             out = g_y.transpose(1,3)[0]
@@ -159,7 +159,7 @@ def fine_tune(path_to_embedding = 'e_hat_video.tar',
                 out = torch.cat((out, g_y.transpose(1,3)[img_no]), dim = 1)
             out = out.type(torch.int32).to(cpu).numpy()
             plt.imshow(out)
-            plt.savefig(os.path.join(sample_out_dir, '{}_g_y.png'.format(i_batch)))
+            plt.savefig(os.path.join(sample_out_dir, '{}_g_y.png'.format(epoch)))
 
             lossesD.append(lossD.item())
             lossesG.append(lossG.item())
