@@ -19,7 +19,8 @@ def fine_tune(path_to_embedding = 'e_hat_video.tar',
               path_to_images = 'examples/fine_tuning/reeps',
               vgg_face_body = 'Pytorch_VGGFACE_IR.py',
               vgg_face_weight = 'Pytorch_VGGFACE.pth',
-              sample_out_dir = 'samples_finetune'):
+              sample_out_dir = 'samples_finetune',
+              epochs=40):
     """Hyperparameters and config"""
     device = torch.device("cuda:0")
     cpu = torch.device("cpu")
@@ -62,7 +63,7 @@ def fine_tune(path_to_embedding = 'e_hat_video.tar',
     lossesD = []
     i_batch_current = 0
 
-    num_epochs = 40
+    num_epochs = epochs # number of epochs to finetune
 
     #Warning if checkpoint inexistant
     if not os.path.isfile(path_to_chkpt):
