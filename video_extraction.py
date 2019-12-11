@@ -86,6 +86,7 @@ def generate_landmarks(cap, device, pad):
         # Capture frame-by-frame
         ret, frame = cap.read()
         if not ret:
+            print("broke at if not ret", ret)
             break  # Can't receive frame. Possibly due to stream end
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         frames_list = [rgb]
@@ -136,6 +137,7 @@ def generate_landmarks(cap, device, pad):
     
     frame_mark = torch.from_numpy(np.array(frame_landmark_list)).type(dtype = torch.float) #K,2,256,256,3
     if frame_mark.shape[0] == 0:
+        print("broke at frame_mark.shape", frame_mark.shape, frame_mark)
         return None, None
     frame_mark = frame_mark.transpose(2, 4).to(device) #K,2,3,256,256
     
