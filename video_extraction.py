@@ -85,7 +85,6 @@ def generate_landmarks(cap, device, pad):
     if(cap.isOpened()):
         # Capture frame-by-frame
         ret, frame = cap.read()
-        print("frame number", frame)
         if not ret:
             print("broke at if not ret", ret)
             return None,None  # Can't receive frame. Possibly due to stream end
