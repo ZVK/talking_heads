@@ -137,6 +137,8 @@ def fine_tune(path_to_embedding = 'e_hat_video.tar',
                   % (epoch, num_epochs, i_batch, len(dataLoader),
                      lossD.item(), lossG.item(), r.mean(), r_hat.mean()))
 
+            # this does this every batch, and it only saves the last image in the batch
+            # we meant to put this in the outer epoch loop
             plt.clf()
             out = x_hat.transpose(1,3)[0]
             for img_no in range(1,x_hat.shape[0]):
