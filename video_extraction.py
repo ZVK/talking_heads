@@ -88,7 +88,7 @@ def generate_landmarks(cap, device, pad):
         print("frame number", frame)
         if not ret:
             print("broke at if not ret", ret)
-            break  # Can't receive frame. Possibly due to stream end
+            return None,None  # Can't receive frame. Possibly due to stream end
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         frames_list = [rgb]
 
