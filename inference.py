@@ -33,8 +33,10 @@ def main(model_weights_path: str = 'model_weights.tar',
     with torch.no_grad():
         enum = 0
         while True:
+            print("doing enum", enum)
             x, g_y = generate_landmarks(cap=cap, device=device, pad=50)
             if x is None and g_y is None:
+                print("broke at enum ", enum)
                 break
             g_y = g_y.unsqueeze(0)
             x = x.unsqueeze(0)
@@ -73,6 +75,7 @@ def main(model_weights_path: str = 'model_weights.tar',
             plt.clf()
             if cv2.waitKey(1) == ord('q'):
                 break
+            enum += 1
     cap.release()
     cv2.destroyAllWindows()
 
