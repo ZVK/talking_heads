@@ -9,3 +9,4 @@ venv/
 loss/__pycache__/
 network/__pycache__/
 webcam_demo/__pycache__/
+*.pyc
